@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(name='multiagent',
       version='0.0.1',
@@ -9,5 +9,5 @@ setup(name='multiagent',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      install_requires=['gym==0.10.5', 'numpy-stl']
+      install_requires=['gym', 'numpy-stl']
 )
