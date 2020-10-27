@@ -1,15 +1,15 @@
 import numpy as np
-from multiagent.core import World, Agent, Landmark
+
+from multiagent.core import Agent, Landmark, World
 from multiagent.scenario import BaseScenario
 
 
 class Scenario(BaseScenario):
 
-    def make_world(self):
+    def make_world(self, num_agents=3):
         world = World()
         # set any world properties first
         world.dim_c = 2
-        num_agents = 3
         world.num_agents = num_agents
         num_adversaries = 1
         num_landmarks = num_agents - 1
@@ -61,8 +61,10 @@ class Scenario(BaseScenario):
         else:
             dists = []
             for l in world.landmarks:
-                dists.append(np.sum(np.square(agent.state.p_pos - l.state.p_pos)))
-            dists.append(np.sum(np.square(agent.state.p_pos - agent.goal_a.state.p_pos)))
+                dists.append(
+                    np.sum(np.square(agent.state.p_pos - l.state.p_pos)))
+            dists.append(
+                np.sum(np.square(agent.state.p_pos - agent.goal_a.state.p_pos)))
             return tuple(dists)
 
     # return all agents that are not adversaries
@@ -85,7 +87,8 @@ class Scenario(BaseScenario):
         # Calculate negative reward for adversary
         adversary_agents = self.adversaries(world)
         if shaped_adv_reward:  # distance-based adversary reward
-            adv_rew = sum([np.sqrt(np.sum(np.square(a.state.p_pos - a.goal_a.state.p_pos))) for a in adversary_agents])
+            adv_rew = sum([np.sqrt(np.sum(
+                np.square(a.state.p_pos - a.goal_a.state.p_pos))) for a in adversary_agents])
         else:  # proximity-based adversary reward (binary)
             adv_rew = 0
             for a in adversary_agents:
@@ -117,7 +120,6 @@ class Scenario(BaseScenario):
                 adv_rew += 5
             return adv_rew
 
-
     def observation(self, agent, world):
         # get positions of all entities in this agent's reference frame
         entity_pos = []
@@ -130,7 +132,8 @@ class Scenario(BaseScenario):
         # communication of all other agents
         other_pos = []
         for other in world.agents:
-            if other is agent: continue
+            if other is agent:
+                continue
             other_pos.append(other.state.p_pos - agent.state.p_pos)
 
         if not agent.adversary:

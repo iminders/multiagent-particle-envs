@@ -1,14 +1,14 @@
 import numpy as np
-from multiagent.core import World, Agent, Landmark
+
+from multiagent.core import Agent, Landmark, World
 from multiagent.scenario import BaseScenario
 
 
 class Scenario(BaseScenario):
-    def make_world(self):
+    def make_world(self, num_agents=3):
         world = World()
         # set any world properties first
         world.dim_c = 2
-        num_agents = 3
         num_landmarks = 3
         world.collaborative = True
         # add agents
