@@ -1,0 +1,23 @@
+name: install
+
+on:
+    release:
+        types:
+            - created
+    push:
+        branches:
+            - main
+# 需要在windows设置:
+#   https://github.com/microsoft/vscode-python/issues/2559
+jobs:
+    maddpg_exp:
+        runs-on: lab
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: install multiagent particl envs Experiment
+              shell: cmd
+              run: |
+                whoami
+                echo "run maddpg on lab"
+                pip install -e . --user
